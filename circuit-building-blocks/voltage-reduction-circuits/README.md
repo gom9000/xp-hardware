@@ -1,5 +1,5 @@
 # Voltage reduction circuits
-Part of the **[xp-circuit-blocks](https://github.com/gom9000/xp-circuit-blocks)** collection: practical notes about reusable circuit building blocks.
+Part of the **[hardware eXPerience](https://github.com/gom9000/xp-hardware)** collection: reusable engineering knowledges built through practical experimentation.
 
 **Background**:
 This experience originated from a real design constraint: a circuit powered from a supply variable between $V_{in_{MIN}}$ and $V_{in_{MAX}}$, depending on the available power source. One internal subsystem, a linear voltage regulator driving a fixed load current $I_{out}$, needed to be decoupled from this wide input swing, requiring a voltage reduction stage between $V_{out_{MIN}}$ and $V_{out_{MAX}}$.
@@ -181,9 +181,3 @@ Topology C represents a better approach among the blocks analyzed, shifting ther
 An op-amp also requires a supply voltage within its rated $V_{CC_{max}}$. When $V_{in_{MAX}}$ exceeds this limit, one of the topologies above would be needed just to power the op-amp itself, creating a circular dependency.  
 An op-amp stage is therefore better seen as a complement rather than an alternative. In a typical multi-stage architecture, Topology C handles the voltage dropping (pre-regulation), while a cascaded op-amp or integrated linear regulator handles precision regulation.  
 *The transistor remains the ideal choice for handling the 'heavy job', while integrated devices are introduced downstream to refine the regulation based on the required precision.*
-
-
-
-## About & License
-**Author**: Alessandro Fraschetti (gom9000).  
-**License**: This experience is licensed under the [MIT License](LICENSE). The license applies to all the documentation, schematic files, and PCB layouts provided in this repository.

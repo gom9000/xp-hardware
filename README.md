@@ -28,5 +28,5 @@ A structured classification and implementation of switch-bank interface circuits
 
 
 ## About & License
-**Author**: Alessandro Fraschetti (gom9000).<br/>
+**Author**: Alessandro Fraschetti (gom9000).  
 **License**: This repository is licensed under the [MIT License](LICENSE). The license applies to all the documentation, schematic files, and PCB layouts provided in this repository.

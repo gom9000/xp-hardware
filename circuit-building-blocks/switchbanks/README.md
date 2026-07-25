@@ -89,8 +89,3 @@ The following projects provide practical implementations of the models described
   Discrete 8-channel implementation using asymmetric RC debouncing, 74LS132 Schmitt triggers, and 74LS574 octal register latching.
 * **[Interface-Based SwitchBank 8](switchbank-pic-8.md)**
   Hybrid 8-channel implementation using a PIC16F648A for debouncing and mode routing, driving a 74LS574 octal register.
-
-
-## About & License
-**Author**: Alessandro Fraschetti (gom9000).  
-**License**: This experience is licensed under the [MIT License](LICENSE). The license applies to all the documentation, schematic files, and PCB layouts provided in this repository.
