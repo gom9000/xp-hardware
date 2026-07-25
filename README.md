@@ -23,6 +23,8 @@ A series of lab experiences focused on testing, measuring, and dimensioning fund
 ### **[Voltage reduction circuits](./circuit-building-blocks/voltage-reduction-circuits)**
 Exploring methods to safely reduce a high and fluctuating supply voltage down to a protected operating range.
 
+### **[Switch-Banks](./circuit-building-blocks/switchbanks)**
+A structured classification and implementation of switch-bank interface circuits.
 
 
 ## About & License

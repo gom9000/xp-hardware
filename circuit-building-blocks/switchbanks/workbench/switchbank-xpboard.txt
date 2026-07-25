@@ -1,0 +1,45 @@
+XPBOARD:
+--------
+switchbank componibile con moduli da 4 switch.
+switch trigger beep feedback
+
+
+xpboard-momentary-switch-rc-debounce
+xpboard-latching-momentary-selector-4
+xpboard-toggling-momentary-switchbank-4
+xpboard-scan-matrix-interface-4
+xpboard-bcd-interface-4
+
+xpboard-scan-bus-interface-8
+	out: 8bit data, address
+	in: 4+4bit data (Na + Nb)
+
+   sb       sb       sb       sb
+   |        |        |        |
+ sm-itf1a sm-itf1b sm-itf2a sm-itf2b
+   |        |        |        |
+...|--------|--------|--------|...
+      bus-itf-8 ( 8bit=4bit(Na)+4bit(Nb) )
+
+
+MODULES:
+--------
+- latching momentary selector (LMS)
+	mutually exclusive latching momentary lighted debounced switch bank
+
+- toggling momentary selector (TMS)
+	lighted debounced toggling momentary switch bank
+
+- bcd interface (BCDI)
+	output to bcd, only for mutually exclusive switch banks
+
+- scan-matrix interface (SMI)
+	on assertion of scan line latches the switch bank output on the matrix bus
+
+
+
+TODO:
+-----
+xpboard-momentary-switch-rc-debounce pcb e realizzazione; !!! ? sicuro?
+xpboard-latching-momentary-selector-4 pcb e realizzazione;
+xpboard-scan-matrix-interface-4 sch, pcb e realizzazione;
