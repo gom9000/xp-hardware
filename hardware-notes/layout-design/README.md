@@ -40,7 +40,7 @@ Analog precision relies heavily on controlling parasitic voltage drops and magne
    * Small-signal references connect to ground via separate, isolated traces that meet at a single "star" point, preventing heavy load currents from introducing ohmic offset errors.
 
 - **Power Bus Dimensioning:**
-   * High-current paths are kept as short and wide as possible. When hand-wiring on perfboards, these paths are reinforced using copper component leads (e.g., $0.5\text{ mm}$ diameter leads), ensuring millivolt-level parasitic drops across the entire operating range. See **[Conductors & Wiring](../conductors-and-wiring)**.
+   * High-current paths are kept as short and wide as possible. When hand-wiring on perfboards, these paths are reinforced using copper component leads (e.g., $0.5\text{ mm}$ / $0.8\text{ mm}$ diameter leads), ensuring millivolt-level parasitic drops across the entire operating range. See **[Conductors & Wiring](../conductors-and-wiring)**.
 
 
 ## On Routing a Nice Layout
