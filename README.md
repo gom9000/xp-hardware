@@ -9,6 +9,9 @@ A collection of engineering notes, design conventions and calculation models for
 ### **[Conductors & Wiring](./hardware-notes/conductors-and-wiring)**
 Guidelines for current carrying capacity, wiring margins on prototyping boards, and PCB trace dimensioning.
 
+### **[Layout Design](./hardware-notes/layout-design)**
+Design guidelines for single-layer isomorphic routing: bridging hand-wired stripboards, home-etching, and industrial PCB fabrication with a single 1:1 layout.
+
 ### **[Heatsink Thermal Dissipation](./hardware-notes/heatsink-thermal-dissipation)** *(Planned)*
 ...
 
