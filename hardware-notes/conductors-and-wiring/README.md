@@ -63,10 +63,10 @@ Calculated with $J = 5\text{ A/mm}^2$ and $\rho_{50} = 0.02\ \Omega\cdot\text{mm
 ### Bench Interconnections
 | Accessory | Section ($A$) | Reference Current ($I$) | Practical Note |
 | :--- | :---: | :---: | :--- |
-| **Standard Pin Headers** (Rigid 2.54mm) | $\approx 0.41\text{ mm}^2$ | 2.0 A / pin | Parallel multiple pins to reduce contact resistance overhead on power rails |
-| **Solid-Core Breadboard Jumpers** (AWG 22) | $\approx 0.32\text{ mm}^2$ | 1.6 A | Inside cheap breadboard, internal clips become the limiting factor above roughly 1 A because of increased contact resistance |
-| **Flexible Jumper Wires** (AWG 24 - 26) | $0.13$ - $0.20\text{ mm}^2$ | 0.65 - 1.0 A | Suited to digital logic buses, unsafe for bulk power distribution |
-| **Dupont Lab Cables** (AWG 28 - 30, often CCA) | $0.05$ - $0.08\text{ mm}^2$ | 0.25 - 0.40 A | Cheap sets use copper-clad aluminum (CCA), which has a resistivity $1.6\times$ higher than pure copper: expect $\Delta V_m$ above 160 mV/m |
+| **Standard Pin Headers** (Rigid 2.54mm) | $\approx 0.41\text{ mm}^2$ | 1.0 A / pin | High-quality gold-plated pins can reach 2.0 A; for a conservative design using economy or surplus parts, 1.0 A per pin is adopted as the safe limit to mitigate localized contact resistance heating and voltage drops. Parallel multiple pins to reduce contact resistance overhead on power rails. |
+| **Solid-Core Breadboard Jumpers** (AWG 22) | $\approx 0.32\text{ mm}^2$ | 1.0 A | While the AWG 22 wire can theoretically handle 1.6 A, the internal spring clips of standard breadboards degrade rapidly and increase contact resistance; keeping current at or below 1.0 A prevents localized voltage drops and heating. |
+| **Flexible Jumper Wires** (AWG 24 - 26) | $0.13$ - $0.20\text{ mm}^2$ | 0.5 A | Although the copper cross-section supports up to 1.0 A, the crimped leaf-connections inside the plastic housings represent a critical point of failure; restricted to 0.5 A to ensure signal and low-power integrity. |
+| **Dupont Lab Cables** (AWG 28 - 30, often CCA) | $0.05$ - $0.08\text{ mm}^2$ | 0.1 A | Cheap sets use copper-clad aluminum (CCA), which has a resistivity $1.6\times$ higher than pure copper. Due to high bulk resistance ($\Delta V_m > 160\text{ mV/m}$) and fragile crimping, they are strictly rated at 100 mA for digital logic signals only. |
 
 
 ## PCB Copper Traces (1 oz / 35 µm Standard Foil)
@@ -75,12 +75,14 @@ Applying a constant current density ($J = 5\text{ A/mm}^2$) across both round co
 * **Aspect Ratio & Heat Dissipation:** A $35\,\mu\text{m}$ (1 oz) PCB trace features an extremely high surface-to-volume ratio compared to a cylindrical $0.5\text{ mm}$ lead. Consequently, PCB traces dissipate thermal energy into the ambient air and the underlying FR4 substrate significantly more efficiently.
 * **Practical Design Limits:** While a $0.5\text{ mm}$ lead ($A \approx 0.20\text{ mm}^2$) carries $1.0\text{ A}$ at $J = 5\text{ A/mm}^2$, strictly replicating this cross-section on a 1 oz PCB would require an impractical trace width of $\approx 5.7\text{ mm}$ ($225\text{ mil}$).
 
-According to the industrial standard **IPC-2221**, current densities between $30\text{ A/mm}^2$ and $100\text{ A/mm}^2$ are routinely tolerated on external PCB layers for a moderate temperature rise ($\Delta T = 10^\circ\text{C}$). 
+According to the industrial standard **IPC-2221**, current densities between $30\text{ A/mm}^2$ and $100\text{ A/mm}^2$ are routinely tolerated on external PCB layers for a moderate temperature rise ($\Delta T = 10^\circ\text{C}$). Unlike free-air round conductors, the current-carrying capacity of planar PCB traces under IPC-2221 is non-linear ($I \propto A^{0.725}$).
 
-Unlike free-air round conductors, the current-carrying capacity of planar PCB traces under IPC-2221 is non-linear ($I \propto A^{0.725}$). To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is adopted as a first-order linear approximation of the IPC-2221 curve. This choice is derived under two operational constraints:
+To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is adopted as a first-order linear approximation of the IPC-2221 curve. This choice is derived under two operational constraints:
 
 1. **Thermal Operating Window ($\Delta T \le 5^\circ\text{C}$):** For standard signal trace widths ($10\text{ mil}$ to $40\text{ mil}$ on 1 oz copper), $J = 20\text{ A/mm}^2$ strictly bounds trace self-heating below $5^\circ\text{C}$ in unventilated enclosures.
 2. **Ohmic Drop ($\Delta V_m = 400\text{ mV/m}$):** On wider power paths ($> 40\text{ mil}$), the design limit shifts from thermal dissipation to voltage drop prevention. At $J = 20\text{ A/mm}^2$, a typical $50\text{ mm}$ PCB run drops less than $20\text{ mV}$, protecting logic noise margins and analog precision.
+
+Both J values are chosen with the same conservative intent; the fourfold difference reflects the underlying physics (round conductor vs. planar copper foil).
 
 Under $J = 20\text{ A/mm}^2$ and $\rho_{50} = 0.02\ \Omega\cdot\text{mm}^2/\text{m}$, the reference voltage drop scales predictably to **$\Delta V_m = 400\text{ mV/m}$**:
 

@@ -1,16 +1,16 @@
 # Hardware eXPerience
-A collection of reusable engineering knowledge built through practical experimentation.
-The repository is organized into two sections:
+A collection of reusable engineering knowledge built through practical experimentation.  
+The repository is organized in the following sections:
 
 
 ## Hardware Notes
-A collection of engineering notes, design conventions and calculation models for hardware development.
+A collection of engineering notes, design conventions and calculation models for hardware prototyping development.
 
 ### **[Conductors & Wiring](./hardware-notes/conductors-and-wiring)**
 Guidelines for current carrying capacity, wiring margins on prototyping boards, and PCB trace dimensioning.
 
 ### **[Layout Design](./hardware-notes/layout-design)**
-Design guidelines for single-layer isomorphic routing: bridging hand-wired stripboards, home-etching, and industrial PCB fabrication with a single 1:1 layout.
+Design guidelines for single-layer isomorphic routing: bridging hand-wired perfboards, home-etching, and industrial PCB fabrication with a single 1:1 layout.
 
 ### **[Heatsink Thermal Dissipation](./hardware-notes/heatsink-thermal-dissipation)** *(Planned)*
 ...
@@ -28,6 +28,10 @@ Exploring methods to safely reduce a high and fluctuating supply voltage down to
 
 ### **[Switch-Banks](./circuit-building-blocks/switchbanks)**
 A structured classification and implementation of switch-bank interface circuits.
+
+
+---
+---
 
 
 ## About & License
