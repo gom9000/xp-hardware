@@ -12,8 +12,8 @@ Guidelines for current carrying capacity, wiring margins on prototyping boards, 
 ### **[Layout Design](./hardware-notes/layout-design)**
 Design guidelines for single-layer isomorphic routing: bridging hand-wired perfboards, home-etching, and industrial PCB fabrication with a single 1:1 layout.
 
-### **[Heatsink Thermal Dissipation](./hardware-notes/heatsink-thermal-dissipation)** *(Planned)*
-...
+### **[TO-220 Heatsink Thermal Resistance](./hardware-notes/to220-heatsink-rth)**
+A bench-tested experimental method to characterize unknown TO-220 heatsinks by measuring their thermal resistance ($\Theta_{sa}$).
 
 
 ---
