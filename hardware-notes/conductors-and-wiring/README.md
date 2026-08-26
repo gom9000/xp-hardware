@@ -1,5 +1,5 @@
 # Conductors & Wiring
-Part of the **[hardware eXPerience](https://github.com/gom9000/xp-hardware)** collection: reusable engineering knowledges built through practical experimentation.
+Part of the **[hardware eXPerience](https://github.com/gom9000/xp-hardware)** collection: reusable engineering knowledge built through practical experimentation.
 
 ## Background
 When prototyping on stripboards or perforated PCBs, it is customary for hobbyists to use surplus component leads (typically resistors and diodes) as conductors. These leads conveniently come mainly in two recurring diameters, $0.5\text{ mm}$ and $0.8\text{ mm}$, which this document treats as the two reference gauges. These notes document the practical design rules and wire gauge choices adopted to ensure low voltage drops and structural reliability under load when using these leads.
@@ -79,7 +79,7 @@ According to the industrial standard **IPC-2221**, current densities between $30
 
 To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is adopted as a first-order linear approximation of the IPC-2221 curve. This choice is derived under two operational constraints:
 
-1. **Thermal Operating Window ($\Delta T \le 5^\circ\text{C}$):** For standard signal trace widths ($10\text{ mil}$ to $40\text{ mil}$ on 1 oz copper), $J = 20\text{ A/mm}^2$ strictly bounds trace self-heating below $5^\circ\text{C}$ in unventilated enclosures.
+1. **Thermal Operating Window ($\Delta T \le 5^\circ\text{C}$):** For standard signal trace widths ($10\text{ mil}$ to $40\text{ mil}$ on 1 oz copper), $J = 20\text{ A/mm}^2$ keeps trace self-heating within approximately $5^\circ\text{C}$ in unventilated enclosures.
 2. **Ohmic Drop ($\Delta V_m = 400\text{ mV/m}$):** On wider power paths ($> 40\text{ mil}$), the design limit shifts from thermal dissipation to voltage drop prevention. At $J = 20\text{ A/mm}^2$, a typical $50\text{ mm}$ PCB run drops less than $20\text{ mV}$, protecting logic noise margins and analog precision.
 
 Both J values are chosen with the same conservative intent; the fourfold difference reflects the underlying physics (round conductor vs. planar copper foil).
