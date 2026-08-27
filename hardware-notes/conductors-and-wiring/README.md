@@ -89,7 +89,8 @@ For a fixed temperature rise $\Delta T = 10^\circ\text{C}$, the corresponding de
 
 To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is selected as a conservative design limit. This choice avoids trace-by-trace recalculations while satisfying two strict operational constraints:
 
-1. **Thermal Operating Window:** For standard signal widths ($10\text{ mil}$ to $40\text{ mil}$), operating at $20\text{ A/mm}^2$ keeps trace self-heating well below the standard $10^\circ\text{C}$ IPC limit, providing thermal margin in unventilated enclosures.
+1. **Thermal Operating Window ($\Delta T \le 1.5^\circ\text{C}$):** Inverting the IPC-2221 formulation ($\Delta T \propto [I / (0.048 \cdot A^{0.725})]^{2.273}$) shows that operating at $20\text{ A/mm}^2$ yields an actual self-heating rise of $\Delta T \approx 0.3^\circ\text{C}$ for $10 mil$ signal traces and $\Delta T \approx 1.3^\circ\text{C}$ for $140 mil$ power paths. This small thermal contribution ensures that the trace remains near ambient temperature, validating the use of $\rho_{50}$ inside warm, unventilated enclosures.
+
 2. **Ohmic Drop Control ($\Delta V_m = 400\text{ mV/m}$):** On wider power paths ($> 40\text{ mil}$), the design limit shifts from thermal dissipation to voltage drop prevention. At $J = 20\text{ A/mm}^2$, a typical $50\text{ mm}$ PCB run drops less than $20\text{ mV}$, protecting logic noise margins and analog precision.
 
 Both $J$ values are chosen with the same conservative intent, and the difference reflects the underlying physics (round conductor vs. planar copper foil).
