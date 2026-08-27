@@ -10,7 +10,7 @@ Two quantities control the voltage drop per meter of a conductor: the material's
 
 $$\Delta V_m = I \cdot R_m = (J \cdot A)(\rho/A) = \rho \cdot J$$
 
-**Resistivity ($\rho$)**: Since circuits are often inside closed or poorly ventilated enclosures, these notes deliberately use the temperature-corrected resistivity of copper at $50^\circ\text{C}$ rather than the standard $20^\circ\text{C}$ value. This assumes the worst realistic operating condition (a warm chassis, sustained load), giving the numbers below a built-in safety margin without having to track ambient temperature case by case:
+**Resistivity ($\rho$)**: Since circuits are often inside closed or poorly ventilated enclosures, these notes deliberately use the temperature-corrected resistivity of copper at $50^\circ\text{C}$ rather than the standard $20^\circ\text{C}$ value. This assumes a conservative operating condition (a warm chassis, sustained load), giving the numbers below a built-in safety margin without having to track ambient temperature case by case:
 
 $$\rho_{50} = \rho_{20} \times [1+\alpha(50 - 20)]$$
 
@@ -47,7 +47,7 @@ Calculated with $J = 5\text{ A/mm}^2$ and $\rho_{50} = 0.02\ \Omega\cdot\text{mm
 | **$0.5\text{ mm}$** | $\approx 0.20\text{ mm}^2$ | 1.0 A | $100\text{ m}\Omega/\text{m}$ | **$100\text{ mV/m}$** |
 | **$0.8\text{ mm}$** | $\approx 0.50\text{ mm}^2$ | 2.5 A | $40\text{ m}\Omega/\text{m}$ | **$100\text{ mV/m}$** |
 
-### Equipment Wires (AWG Gauge)
+### Equipment Wires (AWG Gauge - American Wire Gauge)
 | AWG | Diameter ($\varnothing$) | Section ($A$) | Reference Current ($I$) | Resistance / Meter ($R_m$) | Voltage Drop / Meter ($\Delta V_m$) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **AWG 14** | $\approx 1.63\text{ mm}$ | $\approx 2.08\text{ mm}^2$ | 10 A | $10\text{ m}\Omega/\text{m}$ | **$100\text{ mV/m}$** |
@@ -61,7 +61,7 @@ Calculated with $J = 5\text{ A/mm}^2$ and $\rho_{50} = 0.02\ \Omega\cdot\text{mm
 | **AWG 30** | $\approx 0.25\text{ mm}$ | $\approx 0.05\text{ mm}^2$ | 0.25 A | $400\text{ m}\Omega/\text{m}$ | **$100\text{ mV/m}$** |
 
 ### Bench Interconnections
-| Accessory | Section ($A$) | Reference Current ($I$) | Practical Note |
+| Accessory | Section  ($A$) | Reference Current ($I$) | Practical Note |
 | :--- | :---: | :---: | :--- |
 | **Standard Pin Headers** (Rigid 2.54mm) | $\approx 0.41\text{ mm}^2$ | 1.0 A / pin | High-quality gold-plated pins can reach 2.0 A; for a conservative design using economy or surplus parts, 1.0 A per pin is adopted as the safe limit to mitigate localized contact resistance heating and voltage drops. Parallel multiple pins to reduce contact resistance overhead on power rails. |
 | **Solid-Core Breadboard Jumpers** (AWG 22) | $\approx 0.32\text{ mm}^2$ | 1.0 A | While the AWG 22 wire can theoretically handle 1.6 A, the internal spring clips of standard breadboards degrade rapidly and increase contact resistance; keeping current at or below 1.0 A prevents localized voltage drops and heating. |
@@ -75,27 +75,37 @@ Applying a constant current density ($J = 5\text{ A/mm}^2$) across both round co
 * **Aspect Ratio & Heat Dissipation:** A $35\,\mu\text{m}$ (1 oz) PCB trace features an extremely high surface-to-volume ratio compared to a cylindrical $0.5\text{ mm}$ lead. Consequently, PCB traces dissipate thermal energy into the ambient air and the underlying FR4 substrate significantly more efficiently.
 * **Practical Design Limits:** While a $0.5\text{ mm}$ lead ($A \approx 0.20\text{ mm}^2$) carries $1.0\text{ A}$ at $J = 5\text{ A/mm}^2$, strictly replicating this cross-section on a 1 oz PCB would require an impractical trace width of $\approx 5.7\text{ mm}$ ($225\text{ mil}$).
 
-According to the industrial standard **IPC-2221**, current densities between $30\text{ A/mm}^2$ and $100\text{ A/mm}^2$ are routinely tolerated on external PCB layers for a moderate temperature rise ($\Delta T = 10^\circ\text{C}$). Unlike free-air round conductors, the current-carrying capacity of planar PCB traces under IPC-2221 is non-linear ($I \propto A^{0.725}$).
+According to the **IPC-2221** standard, the maximum current $I$ tolerated on PCB layers for a given temperature rise $\Delta T$ (in °C) and cross-sectional area $A$ (in $\text{mil}^2$) is expressed by the empirical formulation:
 
-To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is adopted as a first-order linear approximation of the IPC-2221 curve. This choice is derived under two operational constraints:
+$$I = k \cdot (\Delta T)^b \cdot A^c$$
 
-1. **Thermal Operating Window ($\Delta T \le 5^\circ\text{C}$):** For standard signal trace widths ($10\text{ mil}$ to $40\text{ mil}$ on 1 oz copper), $J = 20\text{ A/mm}^2$ keeps trace self-heating within approximately $5^\circ\text{C}$ in unventilated enclosures.
-2. **Ohmic Drop ($\Delta V_m = 400\text{ mV/m}$):** On wider power paths ($> 40\text{ mil}$), the design limit shifts from thermal dissipation to voltage drop prevention. At $J = 20\text{ A/mm}^2$, a typical $50\text{ mm}$ PCB run drops less than $20\text{ mV}$, protecting logic noise margins and analog precision.
+Where for external layers, $k = 0.048$, $b = 0.44$, and $c = 0.725$.
 
-Both J values are chosen with the same conservative intent; the fourfold difference reflects the underlying physics (round conductor vs. planar copper foil).
+Due to the sub-linear exponent $c = 0.725$ ($I \propto A^{0.725}$), the allowable current density $J = I / A$ is non-constant and scales inversely with the cross-sectional area:
+
+$$J(A) = \frac{k \cdot (\Delta T)^b \cdot A^c}{A} = k \cdot (\Delta T)^b \cdot A^{c-1} \propto A^{-0.275}$$
+
+For a fixed temperature rise $\Delta T = 10^\circ\text{C}$, the corresponding density is roughly $100\text{ A/mm}^2$ at $10\text{ mil}$ and $48\text{ A/mm}^2$ at $140\text{ mil}$.
+
+To maintain the conservative design philosophy adopted throughout these notes, a baseline density of **$J = 20\text{ A/mm}^2$** is selected as a conservative design limit. This choice avoids trace-by-trace recalculations while satisfying two strict operational constraints:
+
+1. **Thermal Operating Window:** For standard signal widths ($10\text{ mil}$ to $40\text{ mil}$), operating at $20\text{ A/mm}^2$ keeps trace self-heating well below the standard $10^\circ\text{C}$ IPC limit, providing thermal margin in unventilated enclosures.
+2. **Ohmic Drop Control ($\Delta V_m = 400\text{ mV/m}$):** On wider power paths ($> 40\text{ mil}$), the design limit shifts from thermal dissipation to voltage drop prevention. At $J = 20\text{ A/mm}^2$, a typical $50\text{ mm}$ PCB run drops less than $20\text{ mV}$, protecting logic noise margins and analog precision.
+
+Both $J$ values are chosen with the same conservative intent, and the difference reflects the underlying physics (round conductor vs. planar copper foil).
 
 Under $J = 20\text{ A/mm}^2$ and $\rho_{50} = 0.02\ \Omega\cdot\text{mm}^2/\text{m}$, the reference voltage drop scales predictably to **$\Delta V_m = 400\text{ mV/m}$**:
 
 | Width (mil) | Width (mm) | Copper Area ($A$) | Reference Current ($I$) at $J=20\text{ A/mm}^2$ | Resistance / Meter ($R_m$) | Voltage Drop / Meter ($\Delta V_m$) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| 10 mil | 0.254 mm | $0.0089\text{ mm}^2$ | **0.18 A** (180 mA) | $2.25\ \Omega/\text{m}$ | 400 mV/m |
-| 15 mil | 0.381 mm | $0.0133\text{ mm}^2$ | **0.27 A** (270 mA) | $1.50\ \Omega/\text{m}$ | 400 mV/m |
-| 20 mil | 0.508 mm | $0.0178\text{ mm}^2$ | **0.36 A** (360 mA) | $1.12\ \Omega/\text{m}$ | 400 mV/m |
-| 30 mil | 0.762 mm | $0.0267\text{ mm}^2$ | **0.53 A** (530 mA) | $0.75\ \Omega/\text{m}$ | 400 mV/m |
-| 40 mil | 1.016 mm | $0.0356\text{ mm}^2$ | **0.71 A** (710 mA) | $0.56\ \Omega/\text{m}$ | 400 mV/m |
-| 50 mil | 1.270 mm | $0.0445\text{ mm}^2$ | **0.89 A** (890 mA) | $0.45\ \Omega/\text{m}$ | 400 mV/m |
+| 10 mil | 0.254 mm | $0.0089\text{ mm}^2$ | **0.18 A** | $2.25\ \Omega/\text{m}$ | 400 mV/m |
+| 15 mil | 0.381 mm | $0.0133\text{ mm}^2$ | **0.27 A** | $1.50\ \Omega/\text{m}$ | 400 mV/m |
+| 20 mil | 0.508 mm | $0.0178\text{ mm}^2$ | **0.36 A** | $1.12\ \Omega/\text{m}$ | 400 mV/m |
+| 30 mil | 0.762 mm | $0.0267\text{ mm}^2$ | **0.53 A** | $0.75\ \Omega/\text{m}$ | 400 mV/m |
+| 40 mil | 1.016 mm | $0.0356\text{ mm}^2$ | **0.71 A** | $0.56\ \Omega/\text{m}$ | 400 mV/m |
+| 50 mil | 1.270 mm | $0.0445\text{ mm}^2$ | **0.89 A** | $0.45\ \Omega/\text{m}$ | 400 mV/m |
 | → 60 mil | 1.524 mm | $0.0533\text{ mm}^2$ | **1.07 A** | $0.38\ \Omega/\text{m}$ | 400 mV/m |
 | 100 mil | 2.540 mm | $0.0889\text{ mm}^2$ | **1.78 A** | $0.225\ \Omega/\text{m}$ | 400 mV/m |
 | → 140 mil | 3.556 mm | $0.1245\text{ mm}^2$ | **2.49 A** | $0.161\ \Omega/\text{m}$ | 400 mV/m |
 
-> Routing a continuous 140 mil (3.56 mm) trace on a compact single-layer board is often geometrically constraining. To preserve layout compactness while maintaining the $2.5\text{ A}$ rating of a **0.8 mm lead**, standard layout practice dictates using a **60 mil trace reinforced with a bare 0.8 mm copper wire soldered directly along the trace**, effectively augmenting the 1 oz copper foil section.
+> Routing a continuous 140 mil (3.56 mm) trace on a compact single-layer board is often geometrically constraining. To preserve layout compactness while maintaining the $2.5\text{ A}$ design current of a **0.8 mm lead**, a practical prototyping approach is to use **50/60 mil trace reinforced with a bare 0.8 mm copper wire soldered directly along the trace**, effectively augmenting the 1 oz copper foil section.
